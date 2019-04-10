@@ -5,8 +5,6 @@
 
 using namespace std;
 
-enum Dir{_up, _right, _down, _left};
-
 int main(){
 
 	ifstream infile("input/3.txt");
