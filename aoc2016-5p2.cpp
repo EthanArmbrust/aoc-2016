@@ -1,8 +1,4 @@
 #include <iostream>
-#include <sstream>
-#include <fstream>
-#include <vector>
-#include <algorithm>
 #include "hash-library/md5.h"
 
 using namespace std;
