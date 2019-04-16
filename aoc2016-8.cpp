@@ -3,6 +3,9 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <ncurses.h>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -15,6 +18,9 @@ int main(){
 	ifstream infile("input/8.txt");
     string l(50, ' ');
     vector<string> screen(6,l);
+    int row,col;
+
+    initscr();
 
 	string s;
 	while(getline(infile,s)){
@@ -42,15 +48,21 @@ int main(){
                 rotate_col(screen, c, a);
             }
         }
-	}
-
+        for(int i = 0; i < 6; i++){
+            mvprintw(i,0,screen[i].c_str());
+        }
+        refresh();
+        this_thread::sleep_for(chrono::milliseconds(80));
+	} 
+    
     int count = 0;
     for(string str : screen){
         count += std::count(str.begin(), str.end(), '#');
-        cout << str << endl;
     }
 
-    cout << count << endl;
+    mvprintw(7,0,"Total of %i on pixels", count);
+    getch();
+    endwin();
 
 	return 0;
 }
