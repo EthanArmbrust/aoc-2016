@@ -21,6 +21,7 @@ int main(){
     int row,col;
 
     initscr();
+	curs_set(0);
 
 	string s;
 	while(getline(infile,s)){
