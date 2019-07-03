@@ -62,7 +62,6 @@ int main(){
 	bool madeChange = true;
 	while(madeChange){
 		madeChange = false;
-		//for(auto &b : bots){
 		for(int i = 0; i < bots.size(); i++){
 			auto &b = bots[i];
 			if(b.size() == 2){
@@ -95,7 +94,5 @@ int main(){
 	}
 
 	cout << "Part 2: " << output[0] * output[1] * output[2] << endl;
-
 	return 0;
-	
 }
