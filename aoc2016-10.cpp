@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ int main(){
 	vector<pair<int,int>> init; //bot, value
 	vector<Gift> gifts;
 	vector<int> output(100,0);
-	vector<vector<int>> bots(210, {});
+	vector<vector<int>> bots(210, vector<int>(0,0));
 
 	string s;
 	while(getline(infile,s)){
