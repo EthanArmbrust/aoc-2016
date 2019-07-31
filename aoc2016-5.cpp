@@ -12,7 +12,6 @@ int main(){
 	string input = "reyedfim";
 
 	MD5 md5;
-
 	string password;
 
 	int counter = 0;
@@ -25,7 +24,5 @@ int main(){
 	}
 
 	cout << password << endl;
-	
-
 	return 0;
 }

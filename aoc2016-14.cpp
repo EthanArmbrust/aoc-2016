@@ -7,7 +7,7 @@ using namespace std;
 
 struct key{
     int count_val;
-    vector<char> letters;
+    char letter;
 };
 
 bool compare_keys(key a, key b){
@@ -19,20 +19,13 @@ bool verify_repeat(string hash, int count, char c){
     return hash.find(ss) != string::npos;
 }
 
-vector<char> find_repeat(string hash, int count = 3){
-    vector<char> result;
-
-    for(char c = '0'; c <= '9'; c++){
-        if(verify_repeat(hash, count, c)){
-            result.push_back(c);
+char find_repeat(string hash, int count = 3){
+    for(int i = 0; i < hash.length() - 2; i++){
+        if(hash[i] == hash[i+1] && hash[i] == hash[i+2]){
+            return hash[i];
         }
     }
-    for(char c = 'a'; c <= 'f'; c++){
-        if(verify_repeat(hash, count, c)){
-            result.push_back(c);
-        }
-    }
-    return result;
+    return 0;
 }
 
 ///*
@@ -40,41 +33,35 @@ vector<char> find_repeat(string hash, int count = 3){
 int main(){
 
 //    string input = "zpqevtbw";
-    string input = "zpqevtbw";
+    string input = "abc";
     vector<string> hashes;
     MD5 md5;
     int counter = 0;
 
-    string hash = md5(input + to_string(counter));
-    auto some = find_repeat(md5("abc39"));
-
     vector<key> potential_keys;
     vector<key> good_keys;
 
-    while(good_keys.size() < 128){
+    while(!(good_keys.size() >= 64 && !potential_keys.empty())){
         if(counter == 816){
             //cout << "816" << endl;
         }
         string hash = md5(input + to_string(counter));
-        auto char_list = find_repeat(hash);
-        if(!char_list.empty()){
-
-
-            potential_keys.push_back({counter, char_list});
+        auto char_letter = find_repeat(hash);
+        if(char_letter != 0){
+            if(good_keys.size() < 64){
+                potential_keys.push_back({counter, char_letter});
+            }
             for(int i = 0; i < potential_keys.size(); i++){
                 key k = potential_keys[i];
                 if(counter - k.count_val > 1000){
                     potential_keys.erase(potential_keys.begin() + i);
                 } 
-
                 else{
-                    for(auto l : k.letters){
-                        if(verify_repeat(hash, 5, l) && k.count_val != counter){
-                            good_keys.push_back(k);
-                            potential_keys.erase(potential_keys.begin() + i);
-                            break;
-                        }    
-                    }
+                    if(verify_repeat(hash, 5, k.letter) && k.count_val != counter){
+                        good_keys.push_back(k);
+                        potential_keys.erase(potential_keys.begin() + i);
+                        i--;
+                    } 
                 }
             }
         }
