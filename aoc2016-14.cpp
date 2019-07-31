@@ -32,19 +32,16 @@ char find_repeat(string hash, int count = 3){
 
 int main(){
 
-//    string input = "zpqevtbw";
-    string input = "abc";
+    string input = "zpqevtbw";
+    //string input = "abc";
     vector<string> hashes;
     MD5 md5;
-    int counter = 0;
+    int counter = 1;
 
     vector<key> potential_keys;
     vector<key> good_keys;
 
     while(!(good_keys.size() >= 64 && !potential_keys.empty())){
-        if(counter == 816){
-            //cout << "816" << endl;
-        }
         string hash = md5(input + to_string(counter));
         auto char_letter = find_repeat(hash);
         if(char_letter != 0){
@@ -68,67 +65,12 @@ int main(){
         counter++;
     }
 
-    std::sort(good_keys.begin(), good_keys.end(), compare_keys);
+    sort(good_keys.begin(), good_keys.end(), compare_keys);
     int count = 0;
     for(auto k : good_keys){
-        cout << count++ << ":" << k.count_val << endl;
+        cout << count << ": " << k.count_val << endl;
+        count++;
     }
     cout << good_keys[63].count_val << endl;
     return 0;
 }
-//*/
-
-/*
-
-int main(){
-
-    vector<string> hashes;
-    int counter = 0;
-    string input = "abc";
-
-    vector<int> keys;
-
-    MD5 md5;
-
-    while(keys.size() < 64){
-        string h;
-        if(hashes.size() <= counter){
-            string hash = md5(input + to_string(counter));
-            hashes.push_back(hash);
-            h = hash;
-        }
-        else{
-            h = hashes[counter];
-        }
-        auto l = find_repeat(h);
-        if(!l.empty()){
-            for(int i = 1; i < 1000; i++){
-                string h2;
-                bool verified;
-                if(hashes.size() <= counter + i){
-                    string hash = md5(input + to_string(counter + i));
-                    hashes.push_back(hash);
-                    h2 = hash;
-                }
-                else{
-                    h2 = hashes[counter + i];
-                }
-                for(auto c : l){
-                    if(verify_repeat(h2, 5, c)){
-                        keys.push_back(counter);
-                        cout << keys.size() << ":" << counter << endl;
-                        verified = true;
-                        break;
-                    }
-                }
-                if(verified){
-                    break;
-                }
-            }
-        }
-        counter++;
-    }
-    return 0;
-}
-
-*/
