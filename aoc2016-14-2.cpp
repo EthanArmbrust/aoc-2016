@@ -32,7 +32,6 @@ char find_repeat(string hash){
 int main(){
 
     string input = "zpqevtbw";
-    vector<string> hashes;
     MD5 md5;
     int counter = 1;
 
