@@ -19,7 +19,7 @@ bool verify_repeat(string hash, int count, char c){
     return hash.find(ss) != string::npos;
 }
 
-char find_repeat(string hash, int count = 3){
+char find_repeat(string hash){
     for(int i = 0; i < hash.length() - 2; i++){
         if(hash[i] == hash[i+1] && hash[i] == hash[i+2]){
             return hash[i];
@@ -28,12 +28,10 @@ char find_repeat(string hash, int count = 3){
     return 0;
 }
 
-///*
 
 int main(){
 
     string input = "zpqevtbw";
-    //string input = "abc";
     vector<string> hashes;
     MD5 md5;
     int counter = 1;
@@ -47,7 +45,7 @@ int main(){
             hash = md5(hash);
         }
         auto char_letter = find_repeat(hash);
-        if(char_letter != 0){
+        if(char_letter){
             if(good_keys.size() < 64){
                 potential_keys.push_back({counter, char_letter});
             }
@@ -70,11 +68,6 @@ int main(){
     }
 
     sort(good_keys.begin(), good_keys.end(), compare_keys);
-    int count = 0;
-    for(auto k : good_keys){
-        cout << count << ": " << k.count_val << endl;
-        count++;
-    }
     cout << good_keys[63].count_val << endl;
     return 0;
 }
