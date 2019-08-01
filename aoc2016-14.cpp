@@ -52,6 +52,7 @@ int main(){
                 key k = potential_keys[i];
                 if(counter - k.count_val > 1000){
                     potential_keys.erase(potential_keys.begin() + i);
+                    i--;
                 } 
                 else{
                     if(verify_repeat(hash, 5, k.letter) && k.count_val != counter){
