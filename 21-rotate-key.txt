@@ -1,0 +1,8 @@
+Bcdefgha -> aBcdefgh
+aBcdefgh -> ghaBcdef
+haBcdefg -> efghaBcd
+ghaBcdef -> cdefghaB
+fghaBcde -> haBcdefg
+efghaBcd -> fghaBcde
+defghaBc -> defghaBc
+cdefghaB -> Bcdefgha
